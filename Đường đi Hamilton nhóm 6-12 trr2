@@ -236,13 +236,12 @@
     function drawGraph() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        ctx.lineWidth = 2; ctx.strokeStyle = '#cccccc'; // Cạnh đồ thị màu xám
+        ctx.lineWidth = 2; ctx.strokeStyle = '#cccccc'; 
         edges.forEach(edge => {
             const u = getNodeById(edge.u); const v = getNodeById(edge.v);
             if(u && v) { ctx.beginPath(); ctx.moveTo(u.x, u.y); ctx.lineTo(v.x, v.y); ctx.stroke(); }
         });
 
-        // TÔ MÀU CẠNH PHÁT SÁNG
         if (currentAnimPath.length > 0 && animStep > 0) {
             ctx.lineWidth = 5; ctx.strokeStyle = '#FFEB3B'; 
             ctx.shadowColor = '#FFEB3B'; ctx.shadowBlur = 10;
@@ -250,7 +249,7 @@
                 const u = getNodeById(currentAnimPath[i]); const v = getNodeById(currentAnimPath[i+1]);
                 if(u && v) { ctx.beginPath(); ctx.moveTo(u.x, u.y); ctx.lineTo(v.x, v.y); ctx.stroke(); }
             }
-            ctx.shadowBlur = 0; // Tắt glow cho cạnh
+            ctx.shadowBlur = 0; 
         }
 
         nodes.forEach(n => {
@@ -262,11 +261,9 @@
             if (currentAnimPath.length > 0) {
                 const stepIndex = currentAnimPath.indexOf(n.id);
                 if (stepIndex === 0) {
-                    // MÀU XANH LƠ CHO ĐỈNH ĐẦU
                     bgColor = '#00E5FF'; textColor = '#000'; borderColor = '#00B8D4';
                     isGlowing = true; glowColor = '#00E5FF';
                 } else if (stepIndex !== -1 && stepIndex < animStep) {
-                    // MÀU VÀNG/CAM CHO CÁC ĐỈNH TIẾP THEO
                     bgColor = '#FF9800'; textColor = '#fff'; borderColor = '#E65100';
                     isGlowing = true; glowColor = '#FF9800';
                 }
@@ -299,13 +296,12 @@
                 if (isGlowingEdge) {
                     treeCtx.strokeStyle = '#FFEB3B'; treeCtx.lineWidth = 4; treeCtx.shadowColor = '#FFEB3B'; treeCtx.shadowBlur = 15; 
                 } else {
-                    treeCtx.strokeStyle = '#5D4037'; treeCtx.lineWidth = 2; treeCtx.shadowBlur = 0; // Màu cành cây (Nâu sẫm)
+                    treeCtx.strokeStyle = '#5D4037'; treeCtx.lineWidth = 2; treeCtx.shadowBlur = 0; 
                 }
                 treeCtx.stroke(); treeCtx.shadowBlur = 0; 
                 renderNodeAndEdges(child); 
             });
 
-            // LOGIC TÔ MÀU ĐỈNH CÂY
             let nodeType = 'normal'; // 'start', 'path', 'normal', 'leaf_success'
             
             if (currentAnimPath.length > 0) {
@@ -324,9 +320,9 @@
             } else if (nodeType === 'path') {
                 treeCtx.fillStyle = '#FF9800'; treeCtx.shadowColor = '#FF9800'; treeCtx.shadowBlur = 20;
             } else if (nodeType === 'leaf_success') {
-                treeCtx.fillStyle = '#4CAF50'; // Lá thành công xanh lá
+                treeCtx.fillStyle = '#4CAF50'; 
             } else {
-                treeCtx.fillStyle = '#3E2723'; // Node thường màu nâu tối
+                treeCtx.fillStyle = '#3E2723';
             }
             
             treeCtx.fill(); treeCtx.shadowBlur = 0;
